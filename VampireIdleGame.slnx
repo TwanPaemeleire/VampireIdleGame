@@ -1,0 +1,10 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Bloodforge/Bloodforge.vcxproj" Id="700caf96-4883-436f-8074-62e6c3396572" />
+  <Project Path="VampireIdleGame/VampireIdleGame.vcxproj" Id="cd33824a-23ef-4f07-b60a-23d57fe4e78e">
+    <BuildDependency Project="Bloodforge/Bloodforge.vcxproj" />
+  </Project>
+</Solution>
