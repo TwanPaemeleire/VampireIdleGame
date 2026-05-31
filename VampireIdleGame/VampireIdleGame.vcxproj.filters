@@ -18,6 +18,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyStatusEffectSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RegularProjectile.h">
@@ -36,6 +39,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Health.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawningData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusEffectsAttributes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStatusEffectSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

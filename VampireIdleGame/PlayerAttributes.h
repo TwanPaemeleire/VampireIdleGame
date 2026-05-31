@@ -8,8 +8,7 @@ struct PlayerAttributes final : Bloodforge::Component<PlayerAttributes>
 	float RegenerateDelay;
 	float RegenerateAmount;
 
-	// Player equipment?
-	// PLAYER BLOOD
-	// Different blood that gives different stat boosts, dropped by enemies, can be fused together to upgrade quality
+	// BLOOD STONES FOR HEART
+	// Different blood stones that gives different stat boosts, dropped by enemies, can be fused together to upgrade quality
 
 };

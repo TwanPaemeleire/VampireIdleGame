@@ -7,5 +7,5 @@ struct EnemyData final : public Bloodforge::Component<EnemyData>
 {
 	float MovementSpeed;
 	float AmountOfXPToDrop;
-	std::vector<StatusEffectTypes> AppliedStatusEffects;
+	std::vector<StatusEffectData> AppliedStatusEffects;
 };

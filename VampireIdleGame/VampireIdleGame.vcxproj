@@ -143,15 +143,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EnemyStatusEffectSystem.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AreaOfEffect.h" />
     <ClInclude Include="EnemyData.h" />
+    <ClInclude Include="EnemySpawningData.h" />
+    <ClInclude Include="EnemyStatusEffectSystem.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="PlayerAttributes.h" />
     <ClInclude Include="RegularProjectile.h" />
     <ClInclude Include="StatusEffects.h" />
+    <ClInclude Include="StatusEffectsAttributes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

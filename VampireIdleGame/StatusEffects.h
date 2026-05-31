@@ -11,5 +11,6 @@ enum class StatusEffectTypes
 struct StatusEffectData
 {
 	StatusEffectTypes Type;
+	float TimeTracker;
 	float TimeBeforeRemoval;
 };

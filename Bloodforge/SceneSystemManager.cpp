@@ -122,6 +122,7 @@ namespace Bloodforge
 		sceneManagingDataComp.ShouldLoadScene = false;
 		sceneManagingDataComp.SceneToLoadDataEntityId = -1;
 		sceneDataComp->LoadFunction();
+		sceneManagingDataComp = entityManager.GetFirstEntityWithComponents<SceneManagingDataComponent>()->GetComponent<SceneManagingDataComponent>(); // Need to get again, because reference might be invalid after scene load function
 		sceneManagingDataComp.OnSceneSwitch.Invoke(previousSceneDataEntityId, sceneManagingDataComp.CurrentSceneDataEntityId);
 		for (const std::unique_ptr<System>& system : m_RegisteredSystems)
 		{

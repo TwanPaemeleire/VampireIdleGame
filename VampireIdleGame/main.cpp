@@ -28,14 +28,25 @@ void LoadFunction()
 		entityManager.AddComponent<Bloodforge::SpriteComponent>(heartEntityId);
 		Bloodforge::SpriteAnimatorComponent* animator = entityManager.AddComponent<Bloodforge::SpriteAnimatorComponent>(heartEntityId);
 
-		Bloodforge::AnimationData animData;
-		animData.Texture = resourceManager.LoadTexture("Heart/Idle.png");
-		animData.FrameTime = 0.06f;
-		animData.ShouldLoop = true;
-		animData.NumberOfFrames = 15;
-		animator->AddAnimation(CreateId("IdleAnim"), animData);
+		Bloodforge::AnimationData animDataAppear;
+		animDataAppear.Texture = resourceManager.LoadTexture("Heart/Appear.png");
+		animDataAppear.FrameTime = 0.06f;
+		animDataAppear.ShouldLoop = false;
+		animDataAppear.NumberOfFrames = 8;
+		animator->AddAnimation(CreateId("AppearAnim"), animDataAppear);
+		animator->AddAnimationEvent(CreateId("AppearAnim"), [](Bloodforge::SpriteAnimatorComponent& animator)
+			{
+				animator.PlayAnimation(CreateId("IdleAnim"));
+			}, 7, 0.06f);
 
-		animator->PlayAnimation(CreateId("IdleAnim"));
+		Bloodforge::AnimationData animDataIdle;
+		animDataIdle.Texture = resourceManager.LoadTexture("Heart/Idle.png");
+		animDataIdle.FrameTime = 0.06f;
+		animDataIdle.ShouldLoop = true;
+		animDataIdle.NumberOfFrames = 15;
+		animator->AddAnimation(CreateId("IdleAnim"), animDataIdle);
+
+		animator->PlayAnimation(CreateId("AppearAnim"));
 
 		Bloodforge::TransformComponent* transformComp = entityManager.GetComponent<Bloodforge::TransformComponent>(heartEntityId);
 		transformComp->SetLocalPosition(renderer.GetWindowWidth() / 2.0f, renderer.GetWindowHeight() / 2.0f);
@@ -48,8 +59,8 @@ int main(int, char* [])
 	Bloodforge::Bloodforge& engine = Bloodforge::Bloodforge::GetInstance();
 	engine.SetResourcesDirectory("Resources");
 
-	Bloodforge::WindowUtils::SetWindowAlwaysOnTop(true);
-	Bloodforge::WindowUtils::SetWindowBordered(false);
+	Bloodforge::WindowUtils::SetWindowAlwaysOnTop(false);
+	Bloodforge::WindowUtils::SetWindowBordered(true);
 	Bloodforge::WindowUtils::SetWindowFullScreen(false);
 	Bloodforge::WindowUtils::SetWindowSize(350, 350);
 	Bloodforge::WindowUtils::SetWindowTitle("VampireIdleGame");
@@ -58,12 +69,14 @@ int main(int, char* [])
 
 	{
 		Bloodforge::Entity& sceneDataEntity = entityManager.CreateEntity();
+		sceneDataEntity.DontDestroyOnSceneSwitch = true;
 		int entityId = sceneDataEntity.Id;
 		Bloodforge::SceneDataComponent* sceneData = entityManager.AddComponent<Bloodforge::SceneDataComponent>(entityId);
 		sceneData->LoadFunction = LoadFunction;
 
 		Bloodforge::EntityView<Bloodforge::SceneManagingDataComponent> view = entityManager.GetOrCreateFirstEntityWithComponents<Bloodforge::SceneManagingDataComponent>();
 		Bloodforge::SceneManagingDataComponent& sceneManagingData = view.GetComponent<Bloodforge::SceneManagingDataComponent>();
+		entityManager.GetEntity(view.EntityId).DontDestroyOnSceneSwitch = true;
 		sceneManagingData.SceneToLoadDataEntityId = entityId;
 		sceneManagingData.ShouldLoadScene = true;
 	}
