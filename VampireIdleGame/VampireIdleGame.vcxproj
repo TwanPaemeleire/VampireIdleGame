@@ -157,6 +157,7 @@
     <ClInclude Include="Health.h" />
     <ClInclude Include="PlayerAttributes.h" />
     <ClInclude Include="RegularProjectile.h" />
+    <ClInclude Include="SaveFile.h" />
     <ClInclude Include="StatusEffects.h" />
     <ClInclude Include="StatusEffectsAttributes.h" />
   </ItemGroup>

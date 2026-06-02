@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\StatusEffects">
+      <UniqueIdentifier>{47395dbf-f301-48e1-aaff-e3b4ab4d86be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Characters">
+      <UniqueIdentifier>{e2d6fed1-702c-424b-9caf-5e3756cdb6f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Characters\Enemies">
+      <UniqueIdentifier>{38eea98a-838b-43fe-8399-d557d74dc87d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Characters\Player">
+      <UniqueIdentifier>{0b4e8274-2db6-4a69-a607-253886820939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Characters\Shared">
+      <UniqueIdentifier>{73e1f28b-1b42-4a30-8fda-906af0608fb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -26,38 +41,41 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RegularProjectile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StatusEffects.h">
+    <ClInclude Include="SaveFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerAttributes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AreaOfEffect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Health.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemySpawningData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StatusEffectsAttributes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyStatusEffectSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemySpawnSystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Characters\Player</Filter>
     </ClInclude>
     <ClInclude Include="EnemyAttributes.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Characters\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyData.h">
+      <Filter>Header Files\Characters\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawningData.h">
+      <Filter>Header Files\Characters\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawnSystem.h">
+      <Filter>Header Files\Characters\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusEffects.h">
+      <Filter>Header Files\StatusEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusEffectsAttributes.h">
+      <Filter>Header Files\StatusEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStatusEffectSystem.h">
+      <Filter>Header Files\StatusEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="RegularProjectile.h">
+      <Filter>Header Files\Characters\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>Header Files\Characters\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="AreaOfEffect.h">
+      <Filter>Header Files\Characters\Shared</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
