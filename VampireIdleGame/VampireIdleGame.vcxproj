@@ -143,13 +143,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EnemySpawnSystem.cpp" />
     <ClCompile Include="EnemyStatusEffectSystem.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AreaOfEffect.h" />
+    <ClInclude Include="EnemyAttributes.h" />
     <ClInclude Include="EnemyData.h" />
     <ClInclude Include="EnemySpawningData.h" />
+    <ClInclude Include="EnemySpawnSystem.h" />
     <ClInclude Include="EnemyStatusEffectSystem.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="PlayerAttributes.h" />
