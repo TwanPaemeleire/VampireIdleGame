@@ -11,6 +11,8 @@ using ScalingVariablesMap = std::unordered_map<ScalingVariableId, float>;
 
 struct PlayerAttributeData
 {
+	AttributeId SelfAttributeId = 0;
+
 	float BaseValue = 0.0f;
 	float CurrentValue = 0.0f;
 
@@ -22,9 +24,7 @@ struct PlayerAttributeData
 	int CurrentLevel = 0;
 	int MaxLevel = 10;
 
-	Bloodforge::Event<int> OnUpgradeApplied; // Event that passes the owner entity id
-
-	int OwnerEntityId = Bloodforge::EntityManager::GetInstance().GetFirstEntityWithComponents<PlayerAttributes>()->EntityId;
+	Bloodforge::Event<AttributeId> OnUpgradeApplied;
 
 	bool TryBuyAndApplyUpgrade(int& bloodDroplets)
 	{
@@ -33,7 +33,7 @@ struct PlayerAttributeData
 		++CurrentLevel;
 		CurrentCost = CostScaleFunction(CurrentLevel, BaseUpgradeCost, ScalingVariables);
 		CurrentValue = AttributeScaleFunction(CurrentLevel, BaseValue, ScalingVariables);
-		OnUpgradeApplied.Invoke(OwnerEntityId);
+		OnUpgradeApplied.Invoke(SelfAttributeId);
 		return true;
 	}
 
@@ -57,7 +57,7 @@ namespace ScalingFunctions
 
 	inline float AttributeExponentialScaleFunction(int level, float baseValue, const ScalingVariablesMap& scalingVariables)
 	{
-		return baseValue * std::pow(scalingVariables.at(CreateId("ScalingFactor")), level);
+		return baseValue * static_cast<float>(std::pow(scalingVariables.at(CreateId("ScalingFactor")), level));
 	}
 
 	inline int CostLinearScaleFunction(int level, int baseCost, const ScalingVariablesMap& scalingVariables)
@@ -76,8 +76,9 @@ struct PlayerAttributes final : Bloodforge::Component<PlayerAttributes>
 	std::unordered_map<AttributeId, PlayerAttributeData> Attributes
 	{
 		{
-			CreateId("FireRate"), 
+			CreateId("BloodSplatCooldown"), 
 			{
+				.SelfAttributeId = CreateId("BloodSplatCooldown"),
 				.BaseValue = 1.0f,
 				.CurrentValue = 1.0f,
 				.AttributeScaleFunction = ScalingFunctions::AttributeLinearScaleFunction,

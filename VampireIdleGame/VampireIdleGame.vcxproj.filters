@@ -39,6 +39,12 @@
     <ClCompile Include="EnemySpawnSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerHeartSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyMovementSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SaveFile.h">
@@ -76,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="AreaOfEffect.h">
       <Filter>Header Files\Characters\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHeartSystem.h">
+      <Filter>Header Files\Characters\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHeart.h">
+      <Filter>Header Files\Characters\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyMovementSystem.h">
+      <Filter>Header Files\Characters\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

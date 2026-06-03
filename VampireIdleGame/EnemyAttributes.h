@@ -7,7 +7,7 @@ struct IndividualEnemyAttributes final
 	float Health;
 	float MovementSpeed;
 	float AmountOfXPToDrop;
-	int PointCost;
+	float PointCost;
 };
 
 enum class EnemyType
@@ -18,16 +18,16 @@ enum class EnemyType
 
 struct EnemyAttributes final : public Bloodforge::Component<EnemyAttributes>
 {
-	std::unordered_map<EnemyType, IndividualEnemyAttributes> EnemyAttributes
+	std::unordered_map<EnemyType, IndividualEnemyAttributes> Attributes
 	{
 		{
 			EnemyType::TestEnemy, 
 			IndividualEnemyAttributes
 			{
-				20.0f,
-				25.0f,
-				5.0f,
-				1
+				.Health = 20.0f,
+				.MovementSpeed = 25.0f,
+				.AmountOfXPToDrop = 5.0f,
+				.PointCost = 1,
 			}
 		}
 	};

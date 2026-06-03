@@ -10,11 +10,19 @@
 #include <IdCreator.h>
 #include <ResourceManager.h>
 #include <BloodRenderer.h>
+#include <SceneSystemManager.h>
 
 #include <SceneDataComponent.h>
 #include <SceneManagingDataComponent.h>
 #include <SpriteAnimatorComponent.h>
 #include <SpriteComponent.h>
+#include "PlayerHeart.h"
+#include <RectColliderComponent.h>
+
+#include "EnemyMovementSystem.h"
+#include "EnemySpawnSystem.h"
+#include "PlayerHeartSystem.h"
+#include "EnemyStatusEffectSystem.h"
 
 void LoadFunction()
 {
@@ -51,6 +59,11 @@ void LoadFunction()
 		Bloodforge::TransformComponent* transformComp = entityManager.GetComponent<Bloodforge::TransformComponent>(heartEntityId);
 		transformComp->SetLocalPosition(renderer.GetWindowWidth() / 2.0f, renderer.GetWindowHeight() / 2.0f);
 		transformComp->SetLocalScale({ 0.75f, 0.75f });
+
+		/*PlayerHeart* playerHeart = */entityManager.AddComponent<PlayerHeart>(heartEntityId);
+
+		Bloodforge::RectColliderComponent* rectCollider = entityManager.AddComponent<Bloodforge::RectColliderComponent>(heartEntityId);
+		rectCollider->SetSize({ static_cast<float>(renderer.GetWindowWidth()), static_cast<float>(renderer.GetWindowHeight()) });
 	}
 }
 
@@ -66,6 +79,11 @@ int main(int, char* [])
 	Bloodforge::WindowUtils::SetWindowTitle("VampireIdleGame");
 
 	Bloodforge::EntityManager& entityManager = Bloodforge::EntityManager::GetInstance();
+	Bloodforge::SceneSystemManager& sceneSystemManager = Bloodforge::SceneSystemManager::GetInstance();
+	sceneSystemManager.TryRegisterSystem<EnemyMovementSystem>();
+	sceneSystemManager.TryRegisterSystem<EnemySpawnSystem>();
+	sceneSystemManager.TryRegisterSystem<EnemyStatusEffectSystem>();
+	sceneSystemManager.TryRegisterSystem<PlayerHeartSystem>();
 
 	{
 		Bloodforge::Entity& sceneDataEntity = entityManager.CreateEntity();
