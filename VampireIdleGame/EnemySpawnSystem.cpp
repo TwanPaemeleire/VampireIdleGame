@@ -14,6 +14,7 @@
 #include <TransformComponent.h>
 #include <random>
 #include <numbers>
+#include <RectColliderComponent.h>
 
 using namespace Bloodforge;
 
@@ -63,6 +64,10 @@ void EnemySpawnSystem::OnUpdate()
 		Health* health = entityManager.AddComponent<Health>(enemyEntityId);
 		health->MaxHealth = attributes.Health;
 		health->CurrentHealth = attributes.Health;
+		health->OnDeath.AddListener([](int entityId)
+			{
+				EntityManager::GetInstance().DestroyEntity(entityId);
+			});
 
 		SpriteComponent* spriteComp = entityManager.AddComponent<SpriteComponent>(enemyEntityId);
 		SpriteAnimatorComponent* animator = entityManager.AddComponent<SpriteAnimatorComponent>(enemyEntityId);
@@ -93,6 +98,9 @@ void EnemySpawnSystem::OnUpdate()
 		{
 			spriteComp->FlipHorizontal = true;
 		}
+
+		RectColliderComponent* rectCollider = entityManager.AddComponent<RectColliderComponent>(enemyEntityId);
+		rectCollider->SetSize({19.0f, 19.0f});
 
 		GlobalEventHandler::GetInstance().InvokeEvent<EnemySpawnEventData>({ enemyEntityId });
 

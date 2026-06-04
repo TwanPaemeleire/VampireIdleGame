@@ -7,6 +7,10 @@
 #include <GlobalEventHandler.h>
 #include "EnemySpawnSystem.h"
 #include "Health.h"
+#include <SpriteAnimatorComponent.h>
+#include <SpriteComponent.h>
+#include <ResourceManager.h>
+#include "BloodSplat.h"
 
 using namespace Bloodforge;
 
@@ -49,8 +53,9 @@ void PlayerHeartSystem::OnUpdate()
 	PlayerHeart& playerHeart = playerHeartview.GetComponent<PlayerHeart>();
 	for (auto& [weaponType, cooldownLeft] : playerHeart.WeaponsNextAvailableTime)
 	{
+		if (cooldownLeft < 0.0f && playerHeart.EnemyEntityIdsInRange.size() == 0) return;
 		cooldownLeft -= BloodTime::GetInstance().DeltaTime;
-		if (cooldownLeft < 0.0f)
+		if (cooldownLeft < 0.0f && playerHeart.EnemyEntityIdsInRange.size() != 0)
 		{
 			switch (weaponType)
 			{
@@ -65,7 +70,46 @@ void PlayerHeartSystem::OnUpdate()
 	}
 }
 
-void PlayerHeartSystem::DoBloodSplat(PlayerHeart& )//playerHeart)
+void PlayerHeartSystem::DoBloodSplat(PlayerHeart& playerHeart)
 {
-	// int enemyEntityId = playerHeart.EnemyEntityIdsInRange.front();
+	EntityManager& entityManager = EntityManager::GetInstance();
+	int enemyEntityId = playerHeart.EnemyEntityIdsInRange.front();
+
+	TransformComponent* enemyTransform = entityManager.GetComponent<TransformComponent>(enemyEntityId);
+
+	Entity& bloodSplatEntity = entityManager.CreateEntity();
+	bloodSplatEntity.Tag = CreateId("PlayerProjectile");
+	int bloodSplatEntityId = bloodSplatEntity.Id;
+
+	entityManager.AddComponent<SpriteComponent>(bloodSplatEntityId);
+	SpriteAnimatorComponent* animatorComp = entityManager.AddComponent<SpriteAnimatorComponent>(bloodSplatEntityId);
+
+	AnimationData movementAnimData;
+	movementAnimData.FrameTime = 0.06f;
+	movementAnimData.ShouldLoop = true;
+	movementAnimData.NumberOfFrames = 8;
+	movementAnimData.Texture = ResourceManager::GetInstance().LoadTexture("Heart/Projectiles/BloodSplatMovement.png");
+	animatorComp->AddAnimation(CreateId("Movement"), movementAnimData);
+	animatorComp->PlayAnimation(CreateId("Movement"));
+
+	TransformComponent* bloodSplatTransform = entityManager.GetComponent<TransformComponent>(bloodSplatEntityId);
+	Vector2 projectilePos = entityManager.GetComponent<TransformComponent>(playerHeart.OwnerEntityId)->GetWorldPosition();
+	bloodSplatTransform->SetLocalPosition(projectilePos);
+	bloodSplatTransform->SetLocalScale({ 0.3f, 0.3f });
+
+	BloodSplat* bloodSplatComp = entityManager.AddComponent<BloodSplat>(bloodSplatEntityId);
+	bloodSplatComp->Direction = enemyTransform->GetWorldPosition() - projectilePos;
+	bloodSplatComp->Direction.Normalize();
+
+	RectColliderComponent* rectColliderComp = entityManager.AddComponent<RectColliderComponent>(bloodSplatEntityId);
+	rectColliderComp->OnCollisionEnterEvent.AddListener([](int selfId, int otherId)
+		{
+			Entity& otherEntity = EntityManager::GetInstance().GetEntity(otherId);
+			if (otherEntity.Tag != CreateId("Enemy")) return;
+
+			EntityView<PlayerAttributes> playerAttributesView = EntityManager::GetInstance().GetOrCreateFirstEntityWithComponents<PlayerAttributes>();
+			PlayerAttributes& playerAttributes = playerAttributesView.GetComponent<PlayerAttributes>();
+			EntityManager::GetInstance().GetComponent<Health>(otherId)->Damage(playerAttributes.Attributes[CreateId("BloodSplatDamage")].CurrentValue);
+			EntityManager::GetInstance().DestroyEntity(selfId);
+		});
 }

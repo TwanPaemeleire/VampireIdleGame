@@ -79,8 +79,38 @@ struct PlayerAttributes final : Bloodforge::Component<PlayerAttributes>
 			CreateId("BloodSplatCooldown"), 
 			{
 				.SelfAttributeId = CreateId("BloodSplatCooldown"),
-				.BaseValue = 1.0f,
-				.CurrentValue = 1.0f,
+				.BaseValue = 0.5f,
+				.CurrentValue = 0.5f,
+				.AttributeScaleFunction = ScalingFunctions::AttributeLinearScaleFunction,
+				.CostScaleFunction = ScalingFunctions::CostExponentialScaleFunction,
+				.ScalingVariables = { { CreateId("ScalingFactor"), 0.5f } },
+				.BaseUpgradeCost = 10,
+				.CurrentCost = 10,
+				.CurrentLevel = 0,
+				.MaxLevel = 10
+			},
+		},
+		{	
+			CreateId("BloodSplatDamage"),
+			{
+				.SelfAttributeId = CreateId("BloodSplatDamage"),
+				.BaseValue = 5.0f,
+				.CurrentValue = 5.0f,
+				.AttributeScaleFunction = ScalingFunctions::AttributeLinearScaleFunction,
+				.CostScaleFunction = ScalingFunctions::CostExponentialScaleFunction,
+				.ScalingVariables = { { CreateId("ScalingFactor"), 0.5f } },
+				.BaseUpgradeCost = 10,
+				.CurrentCost = 10,
+				.CurrentLevel = 0,
+				.MaxLevel = 10
+			}
+		},
+		{
+			CreateId("BloodSplatSpeed"),
+			{
+				.SelfAttributeId = CreateId("BloodSplatSpeed"),
+				.BaseValue = 75.0f,
+				.CurrentValue = 75.0f,
 				.AttributeScaleFunction = ScalingFunctions::AttributeLinearScaleFunction,
 				.CostScaleFunction = ScalingFunctions::CostExponentialScaleFunction,
 				.ScalingVariables = { { CreateId("ScalingFactor"), 0.5f } },

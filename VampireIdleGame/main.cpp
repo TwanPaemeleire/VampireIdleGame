@@ -23,6 +23,7 @@
 #include "EnemySpawnSystem.h"
 #include "PlayerHeartSystem.h"
 #include "EnemyStatusEffectSystem.h"
+#include "BloodSplatSystem.h"
 
 void LoadFunction()
 {
@@ -33,8 +34,15 @@ void LoadFunction()
 	{
 		Bloodforge::Entity& heartEntity = entityManager.CreateEntity();
 		int heartEntityId = heartEntity.Id;
-		entityManager.AddComponent<Bloodforge::SpriteComponent>(heartEntityId);
-		Bloodforge::SpriteAnimatorComponent* animator = entityManager.AddComponent<Bloodforge::SpriteAnimatorComponent>(heartEntityId);
+
+		Bloodforge::Entity& heartVisualsEntity = entityManager.CreateEntity();
+		int heartVisualsEntityId = heartVisualsEntity.Id;
+		Bloodforge::TransformComponent* heartVisualsTransform = entityManager.GetComponent<Bloodforge::TransformComponent>(heartVisualsEntityId);
+		heartVisualsTransform->SetParent(heartEntityId);
+		heartVisualsTransform->SetLocalScale({ 0.75f, 0.75f });
+
+		entityManager.AddComponent<Bloodforge::SpriteComponent>(heartVisualsEntityId);
+		Bloodforge::SpriteAnimatorComponent* animator = entityManager.AddComponent<Bloodforge::SpriteAnimatorComponent>(heartVisualsEntityId);
 
 		Bloodforge::AnimationData animDataAppear;
 		animDataAppear.Texture = resourceManager.LoadTexture("Heart/Appear.png");
@@ -58,12 +66,11 @@ void LoadFunction()
 
 		Bloodforge::TransformComponent* transformComp = entityManager.GetComponent<Bloodforge::TransformComponent>(heartEntityId);
 		transformComp->SetLocalPosition(renderer.GetWindowWidth() / 2.0f, renderer.GetWindowHeight() / 2.0f);
-		transformComp->SetLocalScale({ 0.75f, 0.75f });
 
-		/*PlayerHeart* playerHeart = */entityManager.AddComponent<PlayerHeart>(heartEntityId);
+		entityManager.AddComponent<PlayerHeart>(heartEntityId);
 
 		Bloodforge::RectColliderComponent* rectCollider = entityManager.AddComponent<Bloodforge::RectColliderComponent>(heartEntityId);
-		rectCollider->SetSize({ static_cast<float>(renderer.GetWindowWidth()), static_cast<float>(renderer.GetWindowHeight()) });
+		rectCollider->SetSize({ static_cast<float>(renderer.GetWindowWidth() - 2), static_cast<float>(renderer.GetWindowHeight() - 2) });
 	}
 }
 
@@ -84,6 +91,7 @@ int main(int, char* [])
 	sceneSystemManager.TryRegisterSystem<EnemySpawnSystem>();
 	sceneSystemManager.TryRegisterSystem<EnemyStatusEffectSystem>();
 	sceneSystemManager.TryRegisterSystem<PlayerHeartSystem>();
+	sceneSystemManager.TryRegisterSystem<BloodSplatSystem>();
 
 	{
 		Bloodforge::Entity& sceneDataEntity = entityManager.CreateEntity();

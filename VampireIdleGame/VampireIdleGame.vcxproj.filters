@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Characters\Shared">
       <UniqueIdentifier>{73e1f28b-1b42-4a30-8fda-906af0608fb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Characters\Player\Projectiles">
+      <UniqueIdentifier>{5fcd917d-6255-43b8-8717-8bbbb74ab155}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -43,6 +46,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnemyMovementSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BloodSplatSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,9 +80,6 @@
     <ClInclude Include="EnemyStatusEffectSystem.h">
       <Filter>Header Files\StatusEffects</Filter>
     </ClInclude>
-    <ClInclude Include="RegularProjectile.h">
-      <Filter>Header Files\Characters\Shared</Filter>
-    </ClInclude>
     <ClInclude Include="Health.h">
       <Filter>Header Files\Characters\Shared</Filter>
     </ClInclude>
@@ -91,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="EnemyMovementSystem.h">
       <Filter>Header Files\Characters\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodSplat.h">
+      <Filter>Header Files\Characters\Player\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodSplatSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

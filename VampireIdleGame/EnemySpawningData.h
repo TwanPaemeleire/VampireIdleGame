@@ -4,7 +4,7 @@
 
 struct EnemySpawningData final : public Bloodforge::Component<EnemySpawningData>
 {
-	float EnemyPointsPerSecond = 1;
+	float EnemyPointsPerSecond = 0.35f;
 	float PointsAvailable = 0;
 	EnemyType CurrentEnemyToSaveFor = EnemyType::ENEMYTYPE_END;
 	float TimeSinceEnemyReachedTriggerRange = 0.0f;
