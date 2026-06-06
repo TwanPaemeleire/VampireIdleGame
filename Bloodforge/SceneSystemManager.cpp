@@ -33,6 +33,16 @@ namespace Bloodforge
 		TryRegisterSystem<CameraSystem>();
 	}
 
+	void SceneSystemManager::Cleanup()
+	{
+		for (const std::unique_ptr<System>& system : m_RegisteredSystems)
+		{
+			system->OnCleanup();
+		}
+		m_RegisteredSystems.clear();
+		m_SystemMap.clear();
+	}
+
 	void SceneSystemManager::Start()
 	{
 		for (const std::unique_ptr<System>& system : m_RegisteredSystems)

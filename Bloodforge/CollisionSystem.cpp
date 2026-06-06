@@ -91,6 +91,11 @@ namespace Bloodforge
 #endif
 	}
 
+	void CollisionSystem::OnCleanup()
+	{
+		m_LastFrameCollisions.clear();
+	}
+
 	void CollisionSystem::UpdateAllCollisionRects()
 	{
 		EntityQueryResult<RectColliderComponent> result = EntityManager::GetInstance().QueryEntities<RectColliderComponent>();

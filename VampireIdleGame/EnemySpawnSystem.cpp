@@ -101,6 +101,7 @@ void EnemySpawnSystem::OnUpdate()
 
 		RectColliderComponent* rectCollider = entityManager.AddComponent<RectColliderComponent>(enemyEntityId);
 		rectCollider->SetSize({19.0f, 19.0f});
+		rectCollider->IgnoreTags.insert(CreateId("Enemy"));
 
 		GlobalEventHandler::GetInstance().InvokeEvent<EnemySpawnEventData>({ enemyEntityId });
 

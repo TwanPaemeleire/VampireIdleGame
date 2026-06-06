@@ -33,7 +33,7 @@ void PlayerHeartSystem::OnStart()
 	// Hook into on collision enter event, so that enemies can be added to the list when entering the heart range
 	EntityView<PlayerHeart, RectColliderComponent> playerHeartView = EntityManager::GetInstance().GetFirstEntityWithComponents<PlayerHeart, RectColliderComponent>().value();
 	RectColliderComponent& playerHeartCollider = playerHeartView.GetComponent<RectColliderComponent>();
-	playerHeartCollider.OnCollisionEnterEvent.AddListener([this](int, int otherEntityId)
+	playerHeartCollider.OnCollisionEnterEvent.AddListener([](int, int otherEntityId)
 		{
 			if (EntityManager::GetInstance().GetEntity(otherEntityId).Tag != CreateId("Enemy")) return;
 			EntityView<PlayerHeart> playerHeartView = EntityManager::GetInstance().GetFirstEntityWithComponents<PlayerHeart>().value();
@@ -41,6 +41,12 @@ void PlayerHeartSystem::OnStart()
 			if (playerHeart.EnemyEntityIdIteratorsInRange.contains(otherEntityId)) return;
 			playerHeart.EnemyEntityIdsInRange.push_back(otherEntityId);
 			playerHeart.EnemyEntityIdIteratorsInRange[otherEntityId] = std::prev(playerHeart.EnemyEntityIdsInRange.end());
+		});
+
+	playerHeartCollider.OnCollisionExitEvent.AddListener([](int, int otherEntityId)
+		{
+			if (EntityManager::GetInstance().GetEntity(otherEntityId).Tag != CreateId("PlayerProjectile")) return;
+			EntityManager::GetInstance().DestroyEntity(otherEntityId);
 		});
 }
 
@@ -102,6 +108,7 @@ void PlayerHeartSystem::DoBloodSplat(PlayerHeart& playerHeart)
 	bloodSplatComp->Direction.Normalize();
 
 	RectColliderComponent* rectColliderComp = entityManager.AddComponent<RectColliderComponent>(bloodSplatEntityId);
+	rectColliderComp->IgnoreTags.insert(CreateId("PlayerProjectile"));
 	rectColliderComp->OnCollisionEnterEvent.AddListener([](int selfId, int otherId)
 		{
 			Entity& otherEntity = EntityManager::GetInstance().GetEntity(otherId);

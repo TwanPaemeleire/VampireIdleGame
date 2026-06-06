@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <Event.h>
 #include <EntityManager.h>
+#include <string>
 
 using AttributeId = unsigned int;
 using ScalingVariableId = unsigned int;
@@ -12,6 +13,7 @@ using ScalingVariablesMap = std::unordered_map<ScalingVariableId, float>;
 struct PlayerAttributeData
 {
 	AttributeId SelfAttributeId = 0;
+	std::string Name;
 
 	float BaseValue = 0.0f;
 	float CurrentValue = 0.0f;
@@ -76,13 +78,14 @@ struct PlayerAttributes final : Bloodforge::Component<PlayerAttributes>
 	std::unordered_map<AttributeId, PlayerAttributeData> Attributes
 	{
 		{
-			CreateId("BloodSplatCooldown"), 
+			CreateId("BloodSplatCooldown"),
 			{
 				.SelfAttributeId = CreateId("BloodSplatCooldown"),
-				.BaseValue = 0.5f,
-				.CurrentValue = 0.5f,
-				.AttributeScaleFunction = ScalingFunctions::AttributeLinearScaleFunction,
-				.CostScaleFunction = ScalingFunctions::CostExponentialScaleFunction,
+				.Name = "BloodSplat Cooldown",
+				.BaseValue = 0.17f,
+				.CurrentValue = 0.17f,
+				.AttributeScaleFunction = ScalingFunctions::AttributeExponentialScaleFunction,
+				.CostScaleFunction = ScalingFunctions::CostLinearScaleFunction,
 				.ScalingVariables = { { CreateId("ScalingFactor"), 0.5f } },
 				.BaseUpgradeCost = 10,
 				.CurrentCost = 10,
@@ -94,8 +97,9 @@ struct PlayerAttributes final : Bloodforge::Component<PlayerAttributes>
 			CreateId("BloodSplatDamage"),
 			{
 				.SelfAttributeId = CreateId("BloodSplatDamage"),
-				.BaseValue = 5.0f,
-				.CurrentValue = 5.0f,
+				.Name = "BloodSplat Damage",
+				.BaseValue = 10.0f,
+				.CurrentValue = 10.0f,
 				.AttributeScaleFunction = ScalingFunctions::AttributeLinearScaleFunction,
 				.CostScaleFunction = ScalingFunctions::CostExponentialScaleFunction,
 				.ScalingVariables = { { CreateId("ScalingFactor"), 0.5f } },
@@ -109,8 +113,9 @@ struct PlayerAttributes final : Bloodforge::Component<PlayerAttributes>
 			CreateId("BloodSplatSpeed"),
 			{
 				.SelfAttributeId = CreateId("BloodSplatSpeed"),
-				.BaseValue = 75.0f,
-				.CurrentValue = 75.0f,
+				.Name = "BloodSplat Speed",
+				.BaseValue = 350.0f,
+				.CurrentValue = 350.0f,
 				.AttributeScaleFunction = ScalingFunctions::AttributeLinearScaleFunction,
 				.CostScaleFunction = ScalingFunctions::CostExponentialScaleFunction,
 				.ScalingVariables = { { CreateId("ScalingFactor"), 0.5f } },

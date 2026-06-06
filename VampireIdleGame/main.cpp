@@ -11,6 +11,7 @@
 #include <ResourceManager.h>
 #include <BloodRenderer.h>
 #include <SceneSystemManager.h>
+#include <InputHandler.h>
 
 #include <SceneDataComponent.h>
 #include <SceneManagingDataComponent.h>
@@ -24,6 +25,7 @@
 #include "PlayerHeartSystem.h"
 #include "EnemyStatusEffectSystem.h"
 #include "BloodSplatSystem.h"
+#include "UpgradeMenuSystem.h"
 
 void LoadFunction()
 {
@@ -72,6 +74,17 @@ void LoadFunction()
 		Bloodforge::RectColliderComponent* rectCollider = entityManager.AddComponent<Bloodforge::RectColliderComponent>(heartEntityId);
 		rectCollider->SetSize({ static_cast<float>(renderer.GetWindowWidth() - 2), static_cast<float>(renderer.GetWindowHeight() - 2) });
 	}
+
+	// Background entity
+	{
+		Bloodforge::Entity& backgroundEntity = entityManager.CreateEntity();
+		int backgroundEntityId = backgroundEntity.Id;
+		Bloodforge::SpriteComponent* spriteComp = entityManager.AddComponent<Bloodforge::SpriteComponent>(backgroundEntityId);
+		spriteComp->DrawOrder = -1;
+		spriteComp->SetTexture(resourceManager.LoadTexture("Background.png"));
+		Bloodforge::TransformComponent* transformComp = entityManager.GetComponent<Bloodforge::TransformComponent>(backgroundEntityId);
+		transformComp->SetLocalPosition(renderer.GetWindowWidth() / 2.0f, renderer.GetWindowHeight() / 2.0f);
+	}
 }
 
 int main(int, char* [])
@@ -92,6 +105,10 @@ int main(int, char* [])
 	sceneSystemManager.TryRegisterSystem<EnemyStatusEffectSystem>();
 	sceneSystemManager.TryRegisterSystem<PlayerHeartSystem>();
 	sceneSystemManager.TryRegisterSystem<BloodSplatSystem>();
+	sceneSystemManager.TryRegisterSystem< UpgradeMenuSystem>();
+
+	Bloodforge::InputHandler::GetInstance().CreateMap(CreateId("MainMap"));
+	Bloodforge::InputHandler::GetInstance().SetCurrentMap(CreateId("MainMap"));
 
 	{
 		Bloodforge::Entity& sceneDataEntity = entityManager.CreateEntity();

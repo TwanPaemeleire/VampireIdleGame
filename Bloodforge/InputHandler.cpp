@@ -5,6 +5,11 @@
 #include <stdexcept>
 #include <iostream>
 
+void Bloodforge::InputHandler::Cleanup()
+{
+	m_InputActionMaps.clear();
+}
+
 void Bloodforge::InputHandler::ProcessInput()
 {
 	SDL_Event e;

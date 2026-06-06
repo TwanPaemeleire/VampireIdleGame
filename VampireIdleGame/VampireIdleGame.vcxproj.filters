@@ -31,6 +31,9 @@
     <Filter Include="Header Files\Characters\Player\Projectiles">
       <UniqueIdentifier>{5fcd917d-6255-43b8-8717-8bbbb74ab155}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{123a7139-fd2c-468d-afe1-6d35f3ef97e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -49,6 +52,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BloodSplatSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UpgradeMenuSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -99,7 +105,13 @@
       <Filter>Header Files\Characters\Player\Projectiles</Filter>
     </ClInclude>
     <ClInclude Include="BloodSplatSystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Characters\Player\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeMenuSystem.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeMenu.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

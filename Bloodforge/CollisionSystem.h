@@ -13,6 +13,7 @@ namespace Bloodforge
 	public:
 		virtual void OnLateUpdate() override;
 		virtual void OnRender() override;
+		virtual void OnCleanup() override;
 
 	private:
 		void UpdateAllCollisionRects();

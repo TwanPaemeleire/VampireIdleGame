@@ -149,6 +149,7 @@
     <ClCompile Include="EnemyStatusEffectSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerHeartSystem.cpp" />
+    <ClCompile Include="UpgradeMenuSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AreaOfEffect.h" />
@@ -167,6 +168,8 @@
     <ClInclude Include="SaveFile.h" />
     <ClInclude Include="StatusEffects.h" />
     <ClInclude Include="StatusEffectsAttributes.h" />
+    <ClInclude Include="UpgradeMenu.h" />
+    <ClInclude Include="UpgradeMenuSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
